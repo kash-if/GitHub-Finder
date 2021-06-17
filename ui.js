@@ -35,4 +35,39 @@ class UI {
     `;
   }
 
-}
+  showAlert(msg, className) {
+    // Call clearAlert function
+    this.clearAlert();
+    // Create a new div element
+    const alert = document.createElement('div');
+    // Add classname to new div element
+    alert.className = className;
+    // Append text message to div element
+    alert.appendChild(document.createTextNode(msg));
+    // Get parent element
+    const parent = document.querySelector('.searchContainer');
+    // Get sibling element
+    const sibling = document.querySelector('.search');
+    // Insert new div element
+    parent.insertBefore(alert, sibling);
+    // Hide alert after 3 sec
+    setTimeout(() => {
+        this.clearAlert()
+      }, 3000)
+    }
+
+    // Function to clear old alerts
+    clearAlert() {
+      // Get old alert element
+      const oldAlert = document.querySelector('.alert');
+      if(oldAlert) {
+        // Remove old alert element from UI
+        oldAlert.remove();
+      }
+    }
+
+    // Function to clear profile data from UI
+    clearProfile() {
+      this.profile.innerHTML = '';
+    }
+  }
