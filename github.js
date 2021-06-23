@@ -1,14 +1,23 @@
 // Defining class GitHub
 class GitHub {
+
+  constructor() {
+    this.repos_count = 5;
+    this.repos_sort = 'created: asc';
+  }
  
   // Function to get user data from GitHub using FETCH API
   async getUser(user) {
-    const fetchResponse = await fetch(`https://api.github.com/users/${user}`);
+    const profileResponse = await fetch(`https://api.github.com/users/${user}`);
 
-    const profileData = await fetchResponse.json();
+    const reposResponse = await fetch(`https://api.github.com/users/${user}/repos?per_page=${this.repos_count}&sort=${this.repos_sort}`);
+
+    const profileData = await profileResponse.json();
+    const reposData = await reposResponse.json();
 
     return {
-      profile: profileData
+      profile: profileData,
+      repos: reposData
     }
   }
 
